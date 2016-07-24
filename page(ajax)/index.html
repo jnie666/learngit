@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>jquery分页实例-柯乐义</title>
+<script type="text/javascript" src="http://keleyi.com/keleyi/pmedia/jquery/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="pagination.css" />
+<style type="text/css">
+
+#Searchresult{width:300px; height:100px; padding:20px; background:#f0f3f9;}
+</style>
+</head>
+<body>
+
+ <script type="text/javascript" src="jquery.pagination.js"></script>
+	 <div class="pages" style="float:left">
+        <div id="Pagination"></div>
+	        <div class="searchPage">
+	          <span class="page-sum">共<strong class="allPage"></strong>页</span>
+	          <span class="page-go">跳转<input type="text">页</span>
+	          <a href="javascript:;" class="page-btn">GO</a>
+	        </div>
+    </div>
+
+    <div id="Searchresult"></div>
+    
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div></div>
+	
+<script type="text/javascript">
+
+		var app = angular.module('app',[]);
+		app.controller('<a href="http://pr.knowsky.com/">PR</a>omiseControl',function($scope,$q,$http) {    
+					function getJson(url){        
+					var deferred = $q.defer();        
+					$http.get(url) 
+			           .success(function(d){                
+				           	d = parseInt(d);                
+				           	console.log(d);                
+				           	deferred.resolve(d);            
+			           });        
+			           return deferred.promise;   
+			         }   
+			           getJson('json1.txt').then(function(){        
+			           	return getJson('json2.txt');    }).then(function(){    
+			           	    return getJson('json1.txt');    }).then(function(){       
+			           	     return getJson('json2.txt');    }).then(function(d){       
+			           	      console.log('end');    });});
+
+
+
+
+		  $("#Pagination").pagination(10, {
+			    num_edge_entries: 1,
+			    num_display_entries: 4,
+			    callback:pageselectCallback,
+			    items_per_page:1,
+			    prev_show_always:false,
+			    next_show_always:false
+		});
+		  function pageselectCallback(page_index, jq){
+				 $("#Searchresult").empty().append(page_index); //装载对应分页的内容
+				 return false;
+			}
+			$(window).scroll(function () {
+				  var st = $(this).scrollTop();
+				  
+				 console.log($(document).scrollTop()+"~~~~"+$(window).height()+"~~~~~~"+ $(document).height());
+				  if ($(document).scrollTop() + $(window).height() >= $(document).height()) {
+        			alert("哦哦,到底了.");
+    				}
+				 
+			});
+
+// 			描述	参数值
+// maxentries	总条目数	必选参数，整数
+// items_per_page	每页显示的条目数	可选参数，默认是10
+// num_display_entries	连续分页主体部分显示的分页条目数	可选参数，默认是10
+// current_page	当前选中的页面	可选参数，默认是0，表示第1页
+// num_edge_entries	两侧显示的首尾分页的条目数	可选参数，默认是0
+// link_to	分页的链接	字符串，可选参数，默认是"#"
+// prev_text	“前一页”分页按钮上显示的文字	字符串参数，可选，默认是"Prev"
+// next_text	“下一页”分页按钮上显示的文字	字符串参数，可选，默认是"Next"
+// ellipse_text	省略的页数用什么文字表示	可选字符串参数，默认是"..."
+// prev_show_always	是否显示“前一页”分页按钮	布尔型，可选参数，默认为true，即显示“前一页”按钮
+// next_show_always	是否显示“下一页”分页按钮	布尔型，可选参数，默认为true，即显示“下一页”按钮
+// callback	回调函数	默认无执行效果
+		 
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nav</title>
+    <script src="http://keleyi.com/keleyi/pmedia/jquery/jquery-1.10.2.min.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        ul {
+            margin: 50px;
+            width: 100px;
+            /*border: 1px solid blue;*/
+            list-style: none;
+        }
+        li {
+            height: 24px;
+            line-height: 24px;
+            border-bottom: 1px solid black;
+            cursor: pointer;
+        }
+        li.selected {
+            color: red;
+            background-color: #ccc;
+        }
+        .nav2 {
+            display: none;
+            position: absolute;
+            left: 150px;
+            top: 50px;
+            background-color: #ccc;
+            border: 1px solid red;
+            width: 100px;
+            height: 140px;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li>AAA001</li>
+    <li>AAA002</li>
+    <li>AAA003</li>
+</ul>
+<div class="nav2">
+
+</div>
+<script>
+    $(document).ready(function(){
+        var navConfig = [
+                [
+                    {
+                        text: "A001A",
+                        link: "A001A",
+                    },
+                    {
+                        text: "A001B",
+                        link: "A001B",
+                    },
+                    {
+                        text: "A001C",
+                        link: "A001C",
+                    }
+                ],
+            [
+                {
+                    text: "A002A",
+                    link: "A002A",
+                },
+                {
+                    text: "A002B",
+                    link: "A002B",
+                },
+                {
+                    text: "A002C",
+                    link: "A002C",
+                }
+            ],
+            [
+                {
+                    text: "A003C",
+                    link: "A003C",
+                },
+                {
+                    text: "A003C",
+                    link: "A003C",
+                },
+                {
+                    text: "A003C",
+                    link: "A003C",
+                }
+            ]
+        ]
+
+        $("ul").on("mouseover", function(){
+            $(".nav2").show();
+        }).on("mouseenter", "li", function(){
+//            console.log($(this).index());
+//            console.log(JSON.stringify(navConfig[$(this).index()]));
+            $(".nav2").empty().text(JSON.stringify(navConfig[$(this).index()]));
+        }).on("mouseleave", function(){
+            $(".nav2").hide();
+        });
+
+        $(".nav2").on("mouseover", function(){
+            $(this).show();
+        }).on("mouseleave", function(){
+            $(this).hide();
+        })
+
+    });
+</script>
+</body>
+</html>
